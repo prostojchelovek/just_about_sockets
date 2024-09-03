@@ -1,12 +1,13 @@
 import server_socket
+from views import read_html
 
 HOST = 'localhost'
 PORT = 3235
 # В зависимости от запроса клиента, будет выводиться соотвествующая информация
-# http://localhost:3235/blog выведет Blog description в браузере
+# http://localhost:3235/blog выведет информацию из шаблона blog.html
 URL = {
-    '/': 'Index',
-    '/blog': 'Blog description',
+    '/': 'templates/index.html',
+    '/blog': 'templates/blog.html',
 }
 
 
@@ -37,7 +38,8 @@ def generate_headers(method, url):
 def generate_response(request):
     method, url = parsed_request(request)
     headers, code = generate_headers(method, url)
-    return f'{headers} {URL.get(url, "Not data")}'.encode()
+    html_doc = read_html(URL.get(url, '/')) if url in URL else 'Not data'
+    return f'{headers} {html_doc}'.encode()
 
 
 def run_server():
