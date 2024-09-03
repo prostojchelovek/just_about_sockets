@@ -12,6 +12,8 @@ URL = {
 
 # Делим запрос с помощью команды сплит на массив слов и берем из него метод и url
 def parsed_request(request):
+    if not request:
+        return 'GET', '/'
     method, url, *_ = request.split(' ')
     return method, url
 
