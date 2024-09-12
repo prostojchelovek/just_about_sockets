@@ -1,14 +1,6 @@
 import server_socket
 from views import read_html
-
-HOST = 'localhost'
-PORT = 3235
-# В зависимости от запроса клиента, будет выводиться соотвествующая информация
-# http://localhost:3235/blog выведет информацию из шаблона blog.html
-URL = {
-    '/': 'templates/index.html',
-    '/blog': 'templates/blog.html',
-}
+from variables import HOST, PORT, URL
 
 
 # Делим запрос с помощью команды сплит на массив слов и берем из него метод и url
@@ -67,9 +59,13 @@ def run_server():
         # Отправляем данные на клиентский сокет
         cl_socket.send(response)
 
-        # Закрываем соединение, чтобы увидеть изменения в браузере
+        # Закрываем соединение
         cl_socket.close()
 
 
 if __name__ == '__main__':
     run_server()
+    # Для подключение можно использовать как браузер, так и утилиту nc в терминале
+    # Пример в терминале с nc: nc localhost 3236
+    # Пример запроса на сервер после подключения через nc:
+    # GET / HTTP/1.1
