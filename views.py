@@ -10,4 +10,4 @@ def read_html(path):
         print(f"Ошибка кодировки при чтении: {path}")
     except OSError as e:
         print(f"Ошибка чтения файла {path}: {e}")
-    return None
+    return html_doc
